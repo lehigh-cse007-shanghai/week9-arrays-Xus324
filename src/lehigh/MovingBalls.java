@@ -3,6 +3,8 @@ package lehigh;
 import processing.core.PApplet;
 
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
@@ -18,12 +20,16 @@ public class MovingBalls extends PApplet {
     public void settings() {
 
         size(500, 500);
+        class Ball {
+            ArrayList<Ball> ball = new ArrayList<>();
+
+        }
 
         for (int i = 0; i < numofballs; i++) {
             x[i] = random(radius, width - radius);
             y[i] = random(radius, height - radius);
-            x_speed[i] = random(8);
-            y_speed[i] = random(8);
+            x_speed[i] = random(2);
+            y_speed[i] = random(2);
             color[i] = new float[]{random(255), random(255), random(255)};
 
         }
@@ -40,15 +46,16 @@ public class MovingBalls extends PApplet {
                 y_speed[i] = -y_speed[i];
             x[i] += x_speed[i];
             y[i] += y_speed[i];
-                for (int j = 0; j < numofballs; j++) {
+            for (int j = 0; j < numofballs; j++) {
                 float X = Math.abs(x[i] - x[j]);
                 float Y = Math.abs(y[i] - y[j]);
 
-                    if ((X <= 30) || Y<= 30)
-                        line(x[i], y[i], x[j], y[j]);
-                    }
-                }
+                if ((X <= 60) && Y <= 60)
+                    line(x[i], y[i], x[j], y[j]);
             }
+        }
+    }
+
 
 
 
